@@ -1,5 +1,6 @@
 import { omit } from "lodash";
-import { Category } from "./category";
+import { Category, CategoryProperties } from "./category";
+import UniqueEntityId from "../../../@seedwork/domain/unique-entity-id.vo";
 
 describe("Category Unit Test", () => {
   test("constructor of category", () => {
@@ -73,6 +74,25 @@ describe("Category Unit Test", () => {
     //
   });
 
+  test("id field", () => {
+    type CategoryData = {
+      props: CategoryProperties;
+      id?: UniqueEntityId;
+    };
+    const data: CategoryData[] = [
+      { props: { name: "Movie" } },
+      { props: { name: "Movie" }, id: null },
+      { props: { name: "Movie" }, id: undefined },
+      { props: { name: "Movie" }, id: new UniqueEntityId() },
+    ];
+
+    data.forEach((i) => {
+      let category = new Category(i.props, i.id);
+      expect(category.id).not.toBeNull();
+      expect(category.id).toBeInstanceOf(UniqueEntityId);
+    });
+  });
+
   test("getter of name props", () => {
     let category = new Category({ name: "Movie" });
     expect(category.name).toBe("Movie");
@@ -102,10 +122,10 @@ describe("Category Unit Test", () => {
     category = new Category({ name: "test", is_active: false });
     expect(category.is_active).toBeFalsy();
   });
-});
 
-test("getter of created_at props", () => {
-  let created_at = new Date();
-  let category = new Category({ name: "Movie", created_at });
-  expect(category.created_at).toBe(created_at);
+  test("getter of created_at props", () => {
+    let created_at = new Date();
+    let category = new Category({ name: "Movie", created_at });
+    expect(category.created_at).toBe(created_at);
+  });
 });
