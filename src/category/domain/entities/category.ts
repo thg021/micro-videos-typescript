@@ -25,6 +25,7 @@ export class Category {
   get description(): string | null {
     return this.props.description;
   }
+
   private set description(value: string) {
     this.props.description = value ?? null;
   }
@@ -32,6 +33,7 @@ export class Category {
   get is_active(): boolean | undefined {
     return this.props.is_active;
   }
+
   private set is_active(value: boolean) {
     this.props.is_active = value ?? true;
   }
