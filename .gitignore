@@ -3,4 +3,3 @@ node_modules/
 uml/
 tsconfig.tsbuildinfo
 .docker/zsh/history/.zsh_history
-.docker/zsh/history/.zsh_history
